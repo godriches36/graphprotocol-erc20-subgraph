@@ -1,0 +1,17 @@
+.
+├── abis
+│   └── ERC20.json
+├── generated
+│   ├── ERC20
+│   │   └── ERC20.ts
+│   └── schema.ts
+├── networks.json
+├── package.json
+├── schema.graphql
+├── src
+│   ├── erc-20.ts
+├── subgraph.yaml
+├── tests
+│   ├── erc-20.test.ts
+│   └── erc-20-utils.ts
+└── tsconfig.json
