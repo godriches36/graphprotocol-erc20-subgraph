@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+ schema:
+   file: ./schema.graphql
+ dataSources:
+   - kind: ethereum
+     name: Lido
+     network: mainnet
+     source:
+       address: "0x8d08948eca2587f5c10159e483b660e98cd5a514"
+       abi: Lido
+       startBlock: 11052984
+     mapping:
+       kind: ethereum/events
+       apiVersion: 0.0.7
+       language: wasm/assemblyscript
+       entities:
+         - ApprovalQuery
+       abis:
+         - name: Lido
+           file: ./abis/Lido.json
+       eventHandlers:
+         - event: Approval(indexed address,indexed address,uint256)
+           handler: ApprovalHandler
+       file: ./src/lido.ts
