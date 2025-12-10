@@ -1,0 +1,15 @@
+const ethers = require("ethers");
+
+// Create a ChainstackProvider instance for Ethereum mainnet
+const chainstack = new ethers.ChainstackProvider("mainnet");
+
+const getTransaction = async (transactionHash) => {
+  const transaction = await chainstack.send("eth_getTransactionByHash", [
+    transactionHash,
+  ]);
+  console.log(transaction);
+};
+
+getTransaction(
+  "0x302a0e29833ced86a2c81d704a7b67988dbe4707b4382d5f75d208952df62621"
+);
