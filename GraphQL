@@ -1,5 +1,5 @@
 {
-  accounts(orderBy: id, orderDirection: asc) {
+  accounts {
     id
     balances {
       id
