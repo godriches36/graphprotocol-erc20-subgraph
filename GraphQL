@@ -1,0 +1,15 @@
+{
+  accounts {
+    id
+    balances {
+      id
+      token {
+        id
+        name
+        symbol
+        decimals
+      }
+      amount
+    }
+  }
+}
