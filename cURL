@@ -1,34 +1,37 @@
-const express = require('express')
-const router = express.Router()
-const needle = require('needle') // You could use 'node-fetch' too, but it might have some conflicts.
+async function fetchBalance() {
 
-// Env variables, taken from the .env file.
-const ETHERSCAN_API_BASE_URL = process.env.ETHERSCAN_API_BASE_URL
-const ETHERSCAN_API_KEY_NAME = process.env.ETHERSCAN_API_KEY_NAME
-const ETHERSCAN_API_KEY_VALUE = process.env.ETHERSCAN_API_KEY_VALUE
+    // Proxy server URL
+		// localhost when ran locally, you will need to add your server URL once deployed.
+    const url = 'http://localhost:4000/balance';
 
-// Route from the server file.
-router.get('/', async (req, res) => {
-    try {
+    // Initialize the HTML element where the balance will be displayed in the front end
+    let displayBalance = document.getElementById("balance")
 
-        // URLSearchParams allows us to build the URL
-        const apiKey = new URLSearchParams({
-            [ETHERSCAN_API_KEY_NAME]: ETHERSCAN_API_KEY_VALUE,
-        })
+    // The Ethereum address to query picked up from the front end
+    const address = document.getElementById("address").value
+    console.log(`Address to query: ${address}`)
 
-        // Build the full API URL using URLSearchParams
-        const fullUrl = `${ETHERSCAN_API_BASE_URL}&${apiKey}`
+    // Send a POST request to the proxy server to query the balance
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ address })
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data
+        console.log(`The balance is: ${data.balance} ETH`);
 
-        // Send the request to the Etherscan API, and retrieve the JSON body response.
-        const apiResponse = await needle('get', fullUrl)
-        const data = apiResponse.body
+        // Slice the response to only show the first 6 numbers
+        const slicedBalance = data.balance.slice(0, 7)
 
-        res.status(200).json(data)
-    } catch (error) {
-        res.status(500).json({
-            error
-        })
-    }
-})
-
-module.exports = router
+        // Display the balance in the front end
+        displayBalance.innerHTML = `Balance: ${slicedBalance} ETH`
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error(error);
+      });
+}
