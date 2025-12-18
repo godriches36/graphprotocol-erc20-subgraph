@@ -1,31 +1,13 @@
-// This is the server file.
+// CLI
 
-const express = require('express')
-const cors = require('cors')
-const rateLimit = require('express-rate-limit')
-require('dotenv').config()
+// Connect to your Dotenv Vault project
+npx dotenv-vault new INSERT_YOUR_VAULT_ID_HERE_OR_LEAVE_BLANK_TO_CREATE_NEW
 
-const PORT = process.env.PORT || 3000
+// Log into your Dotenv Vault project
+npx dotenv-vault login
 
-const app = express()
+// Open your Dotenv Vault project to introduce changes
+npx dotenv-vault open
 
-// Rate limiting, limit the number of requests a user can send within a specific amount of time.
-// With this setup, the user can only make 100 request max every 10 minutes.
-const limiter = rateLimit({
-    WindowMs: 10 * 60 * 1000, // 10 minutes in ms.
-    max: 100  // 100 request max.
-})
-app.use(limiter)
-app.set('trust proxy', 1)
-
-// Set static folder; this allows our server to pick up the HTML file in the src folder.
-app.use(express.static('src'))
-
-// Routes
-// This route looks into the index.js file in the routes folder and picks up the '/' route.
-app.use('/api', require('./routes'))
-
-// Enable cors
-app.use(cors())
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+// Pull your Dotenv Vault project .env file to local storage
+npx dotenv-vault pull
