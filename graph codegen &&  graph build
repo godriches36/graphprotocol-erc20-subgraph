@@ -1,0 +1,1 @@
+graph deploy --node https://api.graph-ams.p2pify.com/88481b1e7b7044ad4f8ba0e733a2cdd6/deploy --ipfs https://api.graph-ams.p2pify.com/88481b1e7b7044ad4f8ba0e733a2cdd6/ipfs sgr-940-529-064
